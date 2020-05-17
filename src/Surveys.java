@@ -6,8 +6,8 @@ public class Surveys {
 	
 	public Surveys() {
 		super();
-		this.s = s;
-		this.sr = sr;
+		this.s = new ArrayList<Survey>();
+		this.sr = new ArrayList<SurveyResponse>();
 	}
 
 	public ArrayList<Survey> getS() {
@@ -30,8 +30,19 @@ public class Surveys {
 		s.add(survey);
 	}
 	
-	public void addRespose(SurveyResponse response) {
+	public void addResponse(SurveyResponse response) {
 		sr.add(response);
+	}
+	
+	public ArrayList<SurveyResponse> getAssociatedResponses(String title){
+		ArrayList<SurveyResponse> returnList = new ArrayList<>();
+		for(int i=0; i < sr.size(); i++) {
+			if(sr.get(i).getSurvey().getTitle().equals(title)) {
+				returnList.add(sr.get(i));
+			}
+		}
+		
+		return returnList;
 	}
 	
 

@@ -1,5 +1,6 @@
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
@@ -65,6 +66,51 @@ public class AllTests {
 		assertEquals("5", sr.getAnswer().values().toArray()[1]);
 		
 	}
+	
+	@Test
+	//Test to ensure the user can search for responses associated by the survey title
+	public void getAllSurveyResponses() {
+		//Create two surveys to ensure the right responses are being retrieved
+		Survey s = new Survey("Quality Survey");
+		Survey secondSurvey = new Survey("Advertising Survey");
+		
+		// creating the new survey responses for the "Quality Survey"
+		SurveyResponse firstResponse = new SurveyResponse("Mary's Answers", s);
+		SurveyResponse secondResponse = new SurveyResponse("John's Reponse", s);
+		SurveyResponse thirdResponse = new SurveyResponse("Joe's Reponse", s);
+		
+		//Adding two responses to the "Advertising Survey"
+		SurveyResponse fourthResponse = new SurveyResponse("Ryan's Reponse", secondSurvey);
+		SurveyResponse fifthResponse = new SurveyResponse("David's Reponse", secondSurvey);
+
+		Surveys surveyList = new Surveys();
+		//Add both surveys to the survey list
+		surveyList.addSurvey(s);
+		surveyList.addSurvey(secondSurvey);
+	
+		//Add each response to the response list
+		surveyList.addResponse(firstResponse);
+		surveyList.addResponse(secondResponse);
+		surveyList.addResponse(thirdResponse);
+		surveyList.addResponse(fourthResponse);
+		surveyList.addResponse(fifthResponse);
+
+		//Add each specific search to an arraylist
+		ArrayList<SurveyResponse> specificResponses = surveyList.getAssociatedResponses("Quality Survey");
+		ArrayList<SurveyResponse> otherSurveyResponses = surveyList.getAssociatedResponses("Advertising Survey");
+
+		//Assert that the right response titles are in the right lists
+		assertEquals("Mary's Answers", specificResponses.get(0).getResponseTitle());
+		assertEquals("John's Reponse", specificResponses.get(1).getResponseTitle());
+		assertEquals("Joe's Reponse", specificResponses.get(2).getResponseTitle());
+		
+		assertEquals("Ryan's Reponse", otherSurveyResponses.get(0).getResponseTitle());
+		assertEquals("David's Reponse", otherSurveyResponses.get(1).getResponseTitle());
+
+
+	}
+
+
 
 
 	@Test
