@@ -45,5 +45,16 @@ public class Surveys {
 		return returnList;
 	}
 	
+	public Survey getSpecificSurvey(String title) {
+		Survey returnSurvey = null;
+		for(Survey survey : s) {
+			if(survey.getTitle().equals(title)) {
+				returnSurvey = survey;
+			}
+		}
+		
+		return returnSurvey;
+	}
+
 
 }

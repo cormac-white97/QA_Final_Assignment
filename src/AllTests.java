@@ -89,6 +89,41 @@ public class AllTests {
 	}
 	
 	@Test
+	//Test that the user can get a specific survey
+	public void getSpecificSurvey() {
+		//Create a number of different surveys
+				Survey s = new Survey("Quality Survey");
+				Survey secondSurvey = new Survey("Advertising Survey");
+				Survey thirdSurvey = new Survey("Phone Survey");
+				
+				Surveys surveys = new Surveys();
+				surveys.addSurvey(s);
+				surveys.addSurvey(secondSurvey);
+				surveys.addSurvey(thirdSurvey);
+				
+				s.addQuestions("Customer Service");
+				s.addQuestions("Hygine");
+				
+				secondSurvey.addQuestions("Coverage");
+				secondSurvey.addQuestions("Clarity");
+
+				Survey specificSurvey = surveys.getSpecificSurvey("Quality Survey");
+				Survey secondSpecificSurvey = surveys.getSpecificSurvey("Advertising Survey");
+
+				
+				assertEquals("Quality Survey", specificSurvey.getTitle());
+				assertEquals("Customer Service", specificSurvey.getQuestions().get(0));
+				assertEquals("Hygine", specificSurvey.getQuestions().get(1));
+				
+				assertEquals("Advertising Survey", secondSpecificSurvey.getTitle());
+				assertEquals("Coverage", secondSpecificSurvey.getQuestions().get(0));
+				assertEquals("Clarity", secondSpecificSurvey.getQuestions().get(1));
+
+				
+
+	}
+	
+	@Test
 	//Test to ensure the user can search for responses associated by the survey title
 	public void getSecificResponses() {
 		//Create two surveys to ensure the right responses are being retrieved
@@ -130,9 +165,6 @@ public class AllTests {
 
 
 	}
-
-
-
 
 	@Test
 	// Test to ensure an answer cannot be added if there are no questions in the survey
