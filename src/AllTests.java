@@ -68,8 +68,29 @@ public class AllTests {
 	}
 	
 	@Test
+	//Get all surveys
+	public void getAllSurveys() {
+		//Create a number of different surveys
+		Survey s = new Survey("Quality Survey");
+		Survey secondSurvey = new Survey("Advertising Survey");
+		Survey thirdSurvey = new Survey("Phone Survey");
+		
+		Surveys surveys = new Surveys();
+		surveys.addSurvey(s);
+		surveys.addSurvey(secondSurvey);
+		surveys.addSurvey(thirdSurvey);
+		
+		ArrayList<Survey> surveyList = surveys.getS();
+		
+		assertEquals("Quality Survey", surveyList.get(0).getTitle());
+		assertEquals("Advertising Survey", surveyList.get(1).getTitle());
+		assertEquals("Phone Survey", surveyList.get(2).getTitle());
+
+	}
+	
+	@Test
 	//Test to ensure the user can search for responses associated by the survey title
-	public void getAllSurveyResponses() {
+	public void getSecificResponses() {
 		//Create two surveys to ensure the right responses are being retrieved
 		Survey s = new Survey("Quality Survey");
 		Survey secondSurvey = new Survey("Advertising Survey");
