@@ -1,15 +1,17 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class SurveyResponse {
 	Survey survey;
 	String responseTitle;
-	ArrayList<String> answers;
-	
+	LinkedHashMap<String, String> answers;
+
 	public SurveyResponse(String responseTitle, Survey survey) {
 		super();
 		this.survey = survey;
 		this.responseTitle = responseTitle;
-		this.answers = new ArrayList<>();
+		this.answers = new LinkedHashMap<>(10, .75f, true);
 	}
 
 	public Survey getSurvey() {
@@ -28,21 +30,26 @@ public class SurveyResponse {
 		this.responseTitle = responseTitle;
 	}
 
-	public ArrayList<String> getAnswer() {
+	public HashMap<String, String> getAnswer() {
 		return answers;
 	}
 
-	public void setAnswer(ArrayList<String> answer) {
+	public void setAnswer(LinkedHashMap<String, String> answer) {
 		this.answers = answer;
 	}
-	
-	public void addAnswers(String answer) {
-		if(survey.getQuestions().isEmpty()) {
-			//Cannot add an answer for a question that does not exist
-		}
-		else {
-			answers.add(answer);
+
+	public void addAnswers(String question, String answer) {
+		if (survey.getQuestions().isEmpty()) {
+			// Cannot add an answer for a question that does not exist
+		} else {
+			answers.put(question, answer);
 		}
 	}
-	
+
+	public LinkedHashMap<String, String> getSpecificSurveyReposes(String surveyTitle) {
+
+		return answers;
+
+	}
+
 }

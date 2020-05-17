@@ -31,4 +31,5 @@ public class Survey {
 	public void addQuestions(String question) {
 		questions.add(question);
 	}
+	
 }

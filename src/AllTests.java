@@ -1,5 +1,8 @@
 import static org.junit.Assert.assertEquals;
 
+import java.util.LinkedHashMap;
+import java.util.Set;
+
 import org.junit.Test;
 
 public class AllTests {
@@ -49,29 +52,34 @@ public class AllTests {
 		// Add question to the survey
 		s.addQuestions("Customer Service");
 		s.addQuestions("Hygine");
+		String question1 = s.getQuestions().get(0);
+		String question2 = s.getQuestions().get(1);
 
 		// creating the new survey respose object and passing in the
 		SurveyResponse sr = new SurveyResponse("Marys Answers", s);
-		sr.addAnswers("3");
-		sr.addAnswers("5");
+		
+		sr.addAnswers(question1,"3");
+		sr.addAnswers(question2,"5");		
 
-		assertEquals("3", sr.getAnswer().get(0));
-		assertEquals("5", sr.getAnswer().get(1));
-
+		assertEquals("3", sr.getAnswer().values().toArray()[0]);
+		assertEquals("5", sr.getAnswer().values().toArray()[1]);
+		
 	}
 
+
 	@Test
-	// Test to ensure an answer cannot be added if there are no questions in the
-	// survey
+	// Test to ensure an answer cannot be added if there are no questions in the survey
 	public void emptyQuestionAnswers() {
 		Survey s = new Survey("Quality Survey");
 
-		// creating the new survey respose object and passing in the
+		// create the new survey respose object and passing in the answers
 		SurveyResponse sr = new SurveyResponse("Marys Answers", s);
-		sr.addAnswers("3");
-		sr.addAnswers("5");
+		sr.addAnswers(s.getTitle(),"3");
+		sr.addAnswers(s.getTitle(),"5");
 
 		assertEquals(true, sr.getAnswer().isEmpty());
 	}
 
+	
+	
 }
