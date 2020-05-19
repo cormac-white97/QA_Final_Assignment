@@ -329,4 +329,40 @@ public class AllTests {
 		assertEquals(1, sDeviation);
 		assertEquals(2, secondDeviation);
 	}
+
+	@Test
+	//Test to ensure that the average answer is retreived for a particular question
+	public void getSpecificAverage() {
+		// Create a number of different surveys
+				Survey s = new Survey("Quality Survey");
+
+				s.addQuestions("Customer Service");
+				s.addQuestions("Hygine");
+				String question1 = s.getQuestions().get(0);
+				String question2 = s.getQuestions().get(1);
+
+				// creating the new survey respose object and passing in the
+				SurveyResponse sr = new SurveyResponse("Marys Answers", s);
+				
+				SurveyResponse secondResponse = new SurveyResponse("Joe's Answers", s);
+
+				sr.addAnswers(question1, 3);
+				sr.addAnswers(question2, 5);
+
+				secondResponse.addAnswers(question1, 1);
+				secondResponse.addAnswers(question2, 4);
+
+				Surveys surveys = new Surveys();
+				surveys.addSurvey(s);
+				
+				surveys.addResponse(sr);
+				surveys.addResponse(secondResponse);
+
+				int srAverage = surveys.getAverageForQuestion("Customer Service", surveys.getSr());
+				int secondAverage = surveys.getAverageForQuestion("Hygine", surveys.getSr());
+
+				assertEquals(2, srAverage);
+				assertEquals(4, secondAverage);
+
+	}
 }

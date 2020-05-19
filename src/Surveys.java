@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Surveys {
 	ArrayList<Survey> s;
@@ -94,6 +95,32 @@ public class Surveys {
 		}
 
 		return (int) Math.sqrt(standardDeviation / length);
+	}
+
+	public int getAverageForQuestion(String questionTitle, ArrayList<SurveyResponse> responseList) {
+		int average = 0;
+		ArrayList<Integer> answers = new ArrayList();
+
+		for (int i = 0; i < responseList.size(); i++) {
+			LinkedHashMap<String, Integer> searchList = (LinkedHashMap<String, Integer>) responseList.get(i)
+					.getAnswer();
+
+			for (int j = 0; j < searchList.keySet().size(); j++) {
+				
+				String searchTitle = searchList.keySet().toArray()[j].toString();
+				if (searchTitle.equals(questionTitle)) {
+					answers.add(Integer.parseInt(searchList.values().toArray()[j].toString()));
+				}
+			}
+
+		}
+
+		for (Integer answer : answers) {
+			average += answer;
+		}
+		average = (int) average / answers.size();
+
+		return average;
 	}
 
 }
