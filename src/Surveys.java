@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Surveys {
@@ -57,17 +58,25 @@ public class Surveys {
 		return returnSurvey;
 	}
 	
-	public int getAverageAnswer(HashMap<String, String> answerList) {
+	public int getAverageAnswer(HashMap<String, Integer> answerList) {
 		int average = 0;
 
-		for(String answer : answerList.values()) {
-			 int answerInt = Integer.parseInt(answer);
-			average += answerInt;
+		for(Integer answer : answerList.values()) {
+			average += answer;
 		}
 		average = (int) average/answerList.values().size();
 		
 		return average;
 	}
 
+	public int getMin(HashMap<String, Integer> answerList) {
+		int min = Collections.min(answerList.values()); 
+		return min;
+	}
+	
+	public int getMax(HashMap<String, Integer> answerList) {
+		int max = Collections.max(answerList.values()); 
+		return max;
+	}
 
 }
