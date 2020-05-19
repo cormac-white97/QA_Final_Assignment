@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Surveys {
 	ArrayList<Survey> s;
@@ -54,6 +55,18 @@ public class Surveys {
 		}
 		
 		return returnSurvey;
+	}
+	
+	public int getAverageAnswer(HashMap<String, String> answerList) {
+		int average = 0;
+
+		for(String answer : answerList.values()) {
+			 int answerInt = Integer.parseInt(answer);
+			average += answerInt;
+		}
+		average = (int) average/answerList.values().size();
+		
+		return average;
 	}
 
 

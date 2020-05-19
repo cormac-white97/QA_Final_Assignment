@@ -179,6 +179,46 @@ public class AllTests {
 		assertEquals(true, sr.getAnswer().isEmpty());
 	}
 
-	
+	@Test
+	//Testing to get the average answer for a survey 
+	public void getAverageAnswer() {
+		//Create a number of different surveys
+				Survey s = new Survey("Quality Survey");
+				Survey secondSurvey = new Survey("Advertising Survey");
+				Survey thirdSurvey = new Survey("Phone Survey");
+				
+				s.addQuestions("Customer Service");
+				s.addQuestions("Hygine");
+				String question1 = s.getQuestions().get(0);
+				String question2 = s.getQuestions().get(1);
+				
+				secondSurvey.addQuestions("Coverage");
+				secondSurvey.addQuestions("Message");
+
+				// creating the new survey respose object and passing in the
+				SurveyResponse sr = new SurveyResponse("Marys Answers", s);
+				SurveyResponse secondResponse = new SurveyResponse("Joe's Answers", secondSurvey);
+
+				
+				sr.addAnswers(question1,"3");
+				sr.addAnswers(question2,"5");	
+				
+				secondResponse.addAnswers(secondSurvey.getQuestions().get(0), "1");
+				secondResponse.addAnswers(secondSurvey.getQuestions().get(1), "4");
+
+				
+				Surveys surveys = new Surveys();
+				surveys.addSurvey(s);
+				surveys.addSurvey(secondSurvey);
+				surveys.addSurvey(thirdSurvey);
+				
+				int sAverage = surveys.getAverageAnswer(sr.getAnswer());
+				int secondAverage = surveys.getAverageAnswer(secondResponse.getAnswer());
+
+				
+				assertEquals(4, sAverage);
+				assertEquals(2, secondAverage);
+				
+	}
 	
 }
