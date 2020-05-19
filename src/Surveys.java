@@ -106,7 +106,7 @@ public class Surveys {
 					.getAnswer();
 
 			for (int j = 0; j < searchList.keySet().size(); j++) {
-				
+
 				String searchTitle = searchList.keySet().toArray()[j].toString();
 				if (searchTitle.equals(questionTitle)) {
 					answers.add(Integer.parseInt(searchList.values().toArray()[j].toString()));
@@ -123,4 +123,83 @@ public class Surveys {
 		return average;
 	}
 
+	public int getMinAnswerForQuestion(String questionTitle, ArrayList<SurveyResponse> responseList) {
+		int min = 0;
+		ArrayList<Integer> answers = new ArrayList();
+
+		for (int i = 0; i < responseList.size(); i++) {
+
+			LinkedHashMap<String, Integer> searchList = (LinkedHashMap<String, Integer>) responseList.get(i)
+					.getAnswer();
+
+			for (int j = 0; j < searchList.keySet().size(); j++) {
+
+				String searchTitle = searchList.keySet().toArray()[j].toString();
+				if (searchTitle.equals(questionTitle)) {
+					answers.add(Integer.parseInt(searchList.values().toArray()[j].toString()));
+				}
+			}
+
+		}
+
+		min = Collections.min(answers);
+
+		return min;
+	}
+
+	public int getMaxAnswerForQuestion(String questionTitle, ArrayList<SurveyResponse> responseList) {
+		int max = 0;
+		ArrayList<Integer> answers = new ArrayList();
+
+		for (int i = 0; i < responseList.size(); i++) {
+
+			LinkedHashMap<String, Integer> searchList = (LinkedHashMap<String, Integer>) responseList.get(i)
+					.getAnswer();
+
+			for (int j = 0; j < searchList.keySet().size(); j++) {
+
+				String searchTitle = searchList.keySet().toArray()[j].toString();
+				if (searchTitle.equals(questionTitle)) {
+					answers.add(Integer.parseInt(searchList.values().toArray()[j].toString()));
+				}
+			}
+
+		}
+
+		max = Collections.max(answers);
+
+		return max;
+	}
+
+	public int getStandardDeviationForQuestion(String questionTitle, ArrayList<SurveyResponse> responseList, HashMap<String, Integer> answerList) {
+		
+		ArrayList<Integer> answers = new ArrayList();
+		double sum = 0.0, standardDeviation = 0.0;
+		int length =answerList.values().size();
+		
+		for (int i = 0; i < responseList.size(); i++) {
+			LinkedHashMap<String, Integer> searchList = (LinkedHashMap<String, Integer>) responseList.get(i)
+					.getAnswer();
+
+			for (int j = 0; j < searchList.keySet().size(); j++) {
+
+				String searchTitle = searchList.keySet().toArray()[j].toString();
+				if (searchTitle.equals(questionTitle)) {
+					answers.add(Integer.parseInt(searchList.values().toArray()[j].toString()));
+				}
+			}
+		}
+		
+		for (double num : answers) {
+			sum += num;
+		}
+
+		double mean = sum / length;
+
+		for (double num : answers) {
+			standardDeviation += Math.pow(num - mean, 2);
+		}
+
+		return (int) Math.sqrt(standardDeviation / length);
+	}
 }

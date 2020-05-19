@@ -363,6 +363,111 @@ public class AllTests {
 
 				assertEquals(2, srAverage);
 				assertEquals(4, secondAverage);
-
 	}
+
+	@Test
+	//Test to get the minimum answer for a specific question
+	public void getSpecificMinAnswer() {
+		// Create a number of different surveys
+				Survey s = new Survey("Quality Survey");
+
+				s.addQuestions("Customer Service");
+				s.addQuestions("Hygine");
+				String question1 = s.getQuestions().get(0);
+				String question2 = s.getQuestions().get(1);
+
+
+				// creating the new survey respose object and passing in the
+				SurveyResponse sr = new SurveyResponse("Marys Answers", s);
+				SurveyResponse secondResponse = new SurveyResponse("Joe's Answers", s);
+
+				sr.addAnswers(question1, 3);
+				sr.addAnswers(question2, 5);
+				
+				secondResponse.addAnswers(question1, 5);
+				secondResponse.addAnswers(question2, 4);
+				
+
+				Surveys surveys = new Surveys();
+				surveys.addSurvey(s);
+				
+				surveys.addResponse(sr);
+				surveys.addResponse(secondResponse);
+
+				int sMin = surveys.getMinAnswerForQuestion("Customer Service", surveys.getSr());
+				int secondMin = surveys.getMinAnswerForQuestion("Hygine", surveys.getSr());
+
+				assertEquals(3, sMin);
+				assertEquals(4, secondMin);
+	}
+
+	@Test
+	//Test that the max answer for a specific question is returned
+	public void getSpecificMaxAnswer() {
+		// Create a number of different surveys
+		Survey s = new Survey("Quality Survey");
+
+		s.addQuestions("Customer Service");
+		s.addQuestions("Hygine");
+		String question1 = s.getQuestions().get(0);
+		String question2 = s.getQuestions().get(1);
+
+
+		// creating the new survey respose object and passing in the
+		SurveyResponse sr = new SurveyResponse("Marys Answers", s);
+		SurveyResponse secondResponse = new SurveyResponse("Joe's Answers", s);
+
+		sr.addAnswers(question1, 1);
+		sr.addAnswers(question2, 5);
+		
+		secondResponse.addAnswers(question1, 4);
+		secondResponse.addAnswers(question2, 4);
+		
+
+		Surveys surveys = new Surveys();
+		surveys.addSurvey(s);
+		
+		surveys.addResponse(sr);
+		surveys.addResponse(secondResponse);
+
+		int sMax = surveys.getMaxAnswerForQuestion("Customer Service", surveys.getSr());
+		int secondMax = surveys.getMaxAnswerForQuestion("Hygine", surveys.getSr());
+
+		assertEquals(4, sMax);
+		assertEquals(5, secondMax);
+	}
+
+	@Test
+	//Test to get the standard deviation for a specific question
+	public void getSpecificStandardDeviation() {
+		// Create a number of different surveys
+				Survey s = new Survey("Quality Survey");
+				
+				s.addQuestions("Customer Service");
+				s.addQuestions("Hygine");
+				String question1 = s.getQuestions().get(0);
+				String question2 = s.getQuestions().get(1);
+
+				// creating the new survey respose object and passing in the
+				SurveyResponse sr = new SurveyResponse("Marys Answers", s);
+				SurveyResponse secondResponse = new SurveyResponse("Joe's Answers", s);
+
+				sr.addAnswers(question1, 3);
+				sr.addAnswers(question2, 1);
+
+				secondResponse.addAnswers(question1, 5);
+				secondResponse.addAnswers(question2, 5);
+				
+				Surveys surveys = new Surveys();
+				surveys.addSurvey(s);
+				surveys.addResponse(sr);
+				surveys.addResponse(secondResponse);
+
+				int sDeviation = surveys.getStandardDeviationForQuestion("Customer Service", surveys.getSr(), sr.getAnswer());
+				int secondDeviation = surveys.getStandardDeviationForQuestion("Hygine", surveys.getSr(), secondResponse.getAnswer());
+
+				assertEquals(1, sDeviation);
+				assertEquals(2, secondDeviation);
+	}
+
 }
