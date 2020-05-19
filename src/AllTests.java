@@ -291,4 +291,42 @@ public class AllTests {
 				assertEquals(5, sMax);
 				assertEquals(4, secondMax);
 	}
+	
+	@Test
+	//Test to check that the standard deviation is returned
+	public void getStandadDeviation() {
+		// Create a number of different surveys
+		Survey s = new Survey("Quality Survey");
+		Survey secondSurvey = new Survey("Advertising Survey");
+		Survey thirdSurvey = new Survey("Phone Survey");
+
+		s.addQuestions("Customer Service");
+		s.addQuestions("Hygine");
+		String question1 = s.getQuestions().get(0);
+		String question2 = s.getQuestions().get(1);
+
+		secondSurvey.addQuestions("Coverage");
+		secondSurvey.addQuestions("Message");
+
+		// creating the new survey respose object and passing in the
+		SurveyResponse sr = new SurveyResponse("Marys Answers", s);
+		SurveyResponse secondResponse = new SurveyResponse("Joe's Answers", secondSurvey);
+
+		sr.addAnswers(question1, 3);
+		sr.addAnswers(question2, 5);
+
+		secondResponse.addAnswers(secondSurvey.getQuestions().get(0), 1);
+		secondResponse.addAnswers(secondSurvey.getQuestions().get(1), 5);
+
+		Surveys surveys = new Surveys();
+		surveys.addSurvey(s);
+		surveys.addSurvey(secondSurvey);
+		surveys.addSurvey(thirdSurvey);
+
+		int sDeviation = surveys.getDeviation(sr.getAnswer());
+		int secondDeviation = surveys.getDeviation(secondResponse.getAnswer());
+
+		assertEquals(1, sDeviation);
+		assertEquals(2, secondDeviation);
+	}
 }
