@@ -46,10 +46,4 @@ public class SurveyResponse {
 		}
 	}
 
-	public LinkedHashMap<String, Integer> getSpecificSurveyReposes(String surveyTitle) {
-
-		return answers;
-
-	}
-
 }

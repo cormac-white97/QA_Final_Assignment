@@ -33,6 +33,29 @@ public class AllTests {
 		assertEquals("Customer Service", s.getQuestions().get(0));
 		assertEquals("Hygine", s.getQuestions().get(1));
 	}
+	
+	@Test
+	//Test that more than 10 questions cannot be added
+	public void addMoreThanTenQuestions() {
+		Survey s = new Survey("Quality Survey");
+
+		// Add questions to the question arraylist
+		s.addQuestions("Question 1");
+		s.addQuestions("Question 2");
+		s.addQuestions("Question 3");
+		s.addQuestions("Question 4");
+		s.addQuestions("Question 5");
+		s.addQuestions("Question 6");
+		s.addQuestions("Question 7");
+		s.addQuestions("Question 8");
+		s.addQuestions("Question 9");
+		s.addQuestions("Question 10");
+		s.addQuestions("Question 11");
+
+
+		// Check that each title is added to their respective slots in the arraylist
+		assertEquals(false, s.getQuestions().contains("Question 11"));
+	}
 
 	@Test
 	// Test that a new SurveyRepose can be created
