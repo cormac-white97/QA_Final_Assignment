@@ -113,59 +113,6 @@ public class AllTests {
 
 	}
 
-	
-	@Test
-	// Get all surveys
-	public void getAllSurveys() {
-		// Create a number of different surveys
-		Survey s = new Survey("Quality Survey");
-		Survey secondSurvey = new Survey("Advertising Survey");
-		Survey thirdSurvey = new Survey("Phone Survey");
-
-		Surveys surveys = new Surveys();
-		surveys.addSurvey(s);
-		surveys.addSurvey(secondSurvey);
-		surveys.addSurvey(thirdSurvey);
-
-		ArrayList<Survey> surveyList = surveys.getS();
-
-		assertEquals("Quality Survey", surveyList.get(0).getTitle());
-		assertEquals("Advertising Survey", surveyList.get(1).getTitle());
-		assertEquals("Phone Survey", surveyList.get(2).getTitle());
-
-	}
-
-	@Test
-	// Test that the user can get a specific survey
-	public void getSpecificSurvey() {
-		// Create a number of different surveys
-		Survey s = new Survey("Quality Survey");
-		Survey secondSurvey = new Survey("Advertising Survey");
-		Survey thirdSurvey = new Survey("Phone Survey");
-
-		Surveys surveys = new Surveys();
-		surveys.addSurvey(s);
-		surveys.addSurvey(secondSurvey);
-		surveys.addSurvey(thirdSurvey);
-
-		s.addQuestions("Customer Service");
-		s.addQuestions("Hygine");
-
-		secondSurvey.addQuestions("Coverage");
-		secondSurvey.addQuestions("Clarity");
-
-		Survey specificSurvey = surveys.getSpecificSurvey("Quality Survey");
-		Survey secondSpecificSurvey = surveys.getSpecificSurvey("Advertising Survey");
-
-		assertEquals("Quality Survey", specificSurvey.getTitle());
-		assertEquals("Customer Service", specificSurvey.getQuestions().get(0));
-		assertEquals("Hygine", specificSurvey.getQuestions().get(1));
-
-		assertEquals("Advertising Survey", secondSpecificSurvey.getTitle());
-		assertEquals("Coverage", secondSpecificSurvey.getQuestions().get(0));
-		assertEquals("Clarity", secondSpecificSurvey.getQuestions().get(1));
-
-	}
 
 	@Test
 	// Get all surveys
