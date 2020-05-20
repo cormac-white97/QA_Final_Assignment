@@ -42,7 +42,10 @@ public class SurveyResponse {
 		if (survey.getQuestions().isEmpty()) {
 			// Cannot add an answer for a question that does not exist
 		} else {
-			answers.put(question, answer);
+			if(answer < 6) {
+				answers.put(question, answer);
+			}
+			
 		}
 	}
 

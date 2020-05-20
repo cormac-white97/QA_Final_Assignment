@@ -34,6 +34,7 @@ public class AllTests {
 		assertEquals("Hygine", s.getQuestions().get(1));
 	}
 
+	
 	@Test
 	// Test that a new SurveyRepose can be created
 	public void addResponse() {
@@ -44,6 +45,7 @@ public class AllTests {
 		assertEquals("Marys Answers", sr.getResponseTitle());
 
 	}
+	
 
 	@Test
 	// Test that the user can add an answer to a response
@@ -62,9 +64,93 @@ public class AllTests {
 		sr.addAnswers(question1,"3");
 		sr.addAnswers(question2,"5");		
 
+<<<<<<< Updated upstream
 		assertEquals("3", sr.getAnswer().values().toArray()[0]);
 		assertEquals("5", sr.getAnswer().values().toArray()[1]);
 		
+=======
+		sr.addAnswers(question1, 3);
+		sr.addAnswers(question2, 5);
+
+		assertEquals(3, sr.getAnswer().values().toArray()[0]);
+		assertEquals(5, sr.getAnswer().values().toArray()[1]);
+
+	}
+
+	@Test
+	//Test that the user cannot add an answer greater than 5
+	public void addMoreThanFive() {
+		Survey s = new Survey("Quality Survey");
+
+		// Add question to the survey
+		s.addQuestions("Customer Service");
+		s.addQuestions("Hygine");
+		String question1 = s.getQuestions().get(0);
+
+		// creating the new survey respose object and passing in the
+		SurveyResponse sr = new SurveyResponse("Marys Answers", s);
+
+		sr.addAnswers(question1, 7);
+		sr.addAnswers(question1, 10);
+
+
+		assertEquals(true, sr.getAnswer().values().isEmpty());
+
+	}
+
+	
+	@Test
+	// Get all surveys
+	public void getAllSurveys() {
+		// Create a number of different surveys
+		Survey s = new Survey("Quality Survey");
+		Survey secondSurvey = new Survey("Advertising Survey");
+		Survey thirdSurvey = new Survey("Phone Survey");
+
+		Surveys surveys = new Surveys();
+		surveys.addSurvey(s);
+		surveys.addSurvey(secondSurvey);
+		surveys.addSurvey(thirdSurvey);
+
+		ArrayList<Survey> surveyList = surveys.getS();
+
+		assertEquals("Quality Survey", surveyList.get(0).getTitle());
+		assertEquals("Advertising Survey", surveyList.get(1).getTitle());
+		assertEquals("Phone Survey", surveyList.get(2).getTitle());
+
+	}
+
+	@Test
+	// Test that the user can get a specific survey
+	public void getSpecificSurvey() {
+		// Create a number of different surveys
+		Survey s = new Survey("Quality Survey");
+		Survey secondSurvey = new Survey("Advertising Survey");
+		Survey thirdSurvey = new Survey("Phone Survey");
+
+		Surveys surveys = new Surveys();
+		surveys.addSurvey(s);
+		surveys.addSurvey(secondSurvey);
+		surveys.addSurvey(thirdSurvey);
+
+		s.addQuestions("Customer Service");
+		s.addQuestions("Hygine");
+
+		secondSurvey.addQuestions("Coverage");
+		secondSurvey.addQuestions("Clarity");
+
+		Survey specificSurvey = surveys.getSpecificSurvey("Quality Survey");
+		Survey secondSpecificSurvey = surveys.getSpecificSurvey("Advertising Survey");
+
+		assertEquals("Quality Survey", specificSurvey.getTitle());
+		assertEquals("Customer Service", specificSurvey.getQuestions().get(0));
+		assertEquals("Hygine", specificSurvey.getQuestions().get(1));
+
+		assertEquals("Advertising Survey", secondSpecificSurvey.getTitle());
+		assertEquals("Coverage", secondSpecificSurvey.getQuestions().get(0));
+		assertEquals("Clarity", secondSpecificSurvey.getQuestions().get(1));
+
+>>>>>>> Stashed changes
 	}
 	
 	@Test
