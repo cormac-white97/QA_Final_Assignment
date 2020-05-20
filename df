@@ -1,0 +1,752 @@
+[1mdiff --git a/bin/AllTests.class b/bin/AllTests.class[m
+[1mindex a2b2993..9a49e87 100644[m
+Binary files a/bin/AllTests.class and b/bin/AllTests.class differ
+[1mdiff --git a/bin/Survey.class b/bin/Survey.class[m
+[1mindex 53fce41..da94f90 100644[m
+Binary files a/bin/Survey.class and b/bin/Survey.class differ
+[1mdiff --git a/bin/SurveyResponse.class b/bin/SurveyResponse.class[m
+[1mindex 68d66d3..1c2a8ab 100644[m
+Binary files a/bin/SurveyResponse.class and b/bin/SurveyResponse.class differ
+[1mdiff --git a/bin/Surveys.class b/bin/Surveys.class[m
+[1mindex bd20024..f51d8d7 100644[m
+Binary files a/bin/Surveys.class and b/bin/Surveys.class differ
+[1mdiff --git a/src/AllTests.java b/src/AllTests.java[m
+[1mindex e9f28fb..d4dbf79 100644[m
+[1m--- a/src/AllTests.java[m
+[1m+++ b/src/AllTests.java[m
+[36m@@ -33,8 +33,30 @@[m [mpublic class AllTests {[m
+ 		assertEquals("Customer Service", s.getQuestions().get(0));[m
+ 		assertEquals("Hygine", s.getQuestions().get(1));[m
+ 	}[m
+[31m-[m
+ 	[m
+[32m+[m	[32m@Test[m
+[32m+[m	[32m//Test that more than 10 questions cannot be added[m
+[32m+[m	[32mpublic void addMoreThanTenQuestions() {[m
+[32m+[m		[32mSurvey s = new Survey("Quality Survey");[m
+[32m+[m
+[32m+[m		[32m// Add questions to the question arraylist[m
+[32m+[m		[32ms.addQuestions("Question 1");[m
+[32m+[m		[32ms.addQuestions("Question 2");[m
+[32m+[m		[32ms.addQuestions("Question 3");[m
+[32m+[m		[32ms.addQuestions("Question 4");[m
+[32m+[m		[32ms.addQuestions("Question 5");[m
+[32m+[m		[32ms.addQuestions("Question 6");[m
+[32m+[m		[32ms.addQuestions("Question 7");[m
+[32m+[m		[32ms.addQuestions("Question 8");[m
+[32m+[m		[32ms.addQuestions("Question 9");[m
+[32m+[m		[32ms.addQuestions("Question 10");[m
+[32m+[m		[32ms.addQuestions("Question 11");[m
+[32m+[m
+[32m+[m
+[32m+[m		[32m// Check that each title is added to their respective slots in the arraylist[m
+[32m+[m		[32massertEquals(false, s.getQuestions().contains("Question 11"));[m
+[32m+[m	[32m}[m
+[32m+[m
+ 	@Test[m
+ 	// Test that a new SurveyRepose can be created[m
+ 	public void addResponse() {[m
+[36m@@ -45,7 +67,6 @@[m [mpublic class AllTests {[m
+ 		assertEquals("Marys Answers", sr.getResponseTitle());[m
+ [m
+ 	}[m
+[31m-	[m
+ [m
+ 	@Test[m
+ 	// Test that the user can add an answer to a response[m
+[36m@@ -60,15 +81,7 @@[m [mpublic class AllTests {[m
+ [m
+ 		// creating the new survey respose object and passing in the[m
+ 		SurveyResponse sr = new SurveyResponse("Marys Answers", s);[m
+[31m-		[m
+[31m-		sr.addAnswers(question1,"3");[m
+[31m-		sr.addAnswers(question2,"5");		[m
+ [m
+[31m-<<<<<<< Updated upstream[m
+[31m-		assertEquals("3", sr.getAnswer().values().toArray()[0]);[m
+[31m-		assertEquals("5", sr.getAnswer().values().toArray()[1]);[m
+[31m-		[m
+[31m-=======[m
+ 		sr.addAnswers(question1, 3);[m
+ 		sr.addAnswers(question2, 5);[m
+ [m
+[36m@@ -77,28 +90,6 @@[m [mpublic class AllTests {[m
+ [m
+ 	}[m
+ [m
+[31m-	@Test[m
+[31m-	//Test that the user cannot add an answer greater than 5[m
+[31m-	public void addMoreThanFive() {[m
+[31m-		Survey s = new Survey("Quality Survey");[m
+[31m-[m
+[31m-		// Add question to the survey[m
+[31m-		s.addQuestions("Customer Service");[m
+[31m-		s.addQuestions("Hygine");[m
+[31m-		String question1 = s.getQuestions().get(0);[m
+[31m-[m
+[31m-		// creating the new survey respose object and passing in the[m
+[31m-		SurveyResponse sr = new SurveyResponse("Marys Answers", s);[m
+[31m-[m
+[31m-		sr.addAnswers(question1, 7);[m
+[31m-		sr.addAnswers(question1, 10);[m
+[31m-[m
+[31m-[m
+[31m-		assertEquals(true, sr.getAnswer().values().isEmpty());[m
+[31m-[m
+[31m-	}[m
+[31m-[m
+[31m-	[m
+ 	@Test[m
+ 	// Get all surveys[m
+ 	public void getAllSurveys() {[m
+[36m@@ -150,68 +141,356 @@[m [mpublic class AllTests {[m
+ 		assertEquals("Coverage", secondSpecificSurvey.getQuestions().get(0));[m
+ 		assertEquals("Clarity", secondSpecificSurvey.getQuestions().get(1));[m
+ [m
+[31m->>>>>>> Stashed changes[m
+ 	}[m
+[31m-	[m
+[32m+[m
+ 	@Test[m
+[31m-	//Test to ensure the user can search for responses associated by the survey title[m
+[31m-	public void getAllSurveyResponses() {[m
+[31m-		//Create two surveys to ensure the right responses are being retrieved[m
+[32m+[m	[32m// Test to ensure the user can search for responses associated by the survey[m
+[32m+[m	[32m// title[m
+[32m+[m	[32mpublic void getSecificResponses() {[m
+[32m+[m		[32m// Create two surveys to ensure the right responses are being retrieved[m
+ 		Survey s = new Survey("Quality Survey");[m
+ 		Survey secondSurvey = new Survey("Advertising Survey");[m
+[31m-		[m
+[32m+[m
+ 		// creating the new survey responses for the "Quality Survey"[m
+ 		SurveyResponse firstResponse = new SurveyResponse("Mary's Answers", s);[m
+ 		SurveyResponse secondResponse = new SurveyResponse("John's Reponse", s);[m
+ 		SurveyResponse thirdResponse = new SurveyResponse("Joe's Reponse", s);[m
+[31m-		[m
+[31m-		//Adding two responses to the "Advertising Survey"[m
+[32m+[m
+[32m+[m		[32m// Adding two responses to the "Advertising Survey"[m
+ 		SurveyResponse fourthResponse = new SurveyResponse("Ryan's Reponse", secondSurvey);[m
+ 		SurveyResponse fifthResponse = new SurveyResponse("David's Reponse", secondSurvey);[m
+ [m
+ 		Surveys surveyList = new Surveys();[m
+[31m-		//Add both surveys to the survey list[m
+[32m+[m		[32m// Add both surveys to the survey list[m
+ 		surveyList.addSurvey(s);[m
+ 		surveyList.addSurvey(secondSurvey);[m
+[31m-	[m
+[31m-		//Add each response to the response list[m
+[32m+[m
+[32m+[m		[32m// Add each response to the response list[m
+ 		surveyList.addResponse(firstResponse);[m
+ 		surveyList.addResponse(secondResponse);[m
+ 		surveyList.addResponse(thirdResponse);[m
+ 		surveyList.addResponse(fourthResponse);[m
+ 		surveyList.addResponse(fifthResponse);[m
+ [m
+[31m-		//Add each specific search to an arraylist[m
+[32m+[m		[32m// Add each specific search to an arraylist[m
+ 		ArrayList<SurveyResponse> specificResponses = surveyList.getAssociatedResponses("Quality Survey");[m
+ 		ArrayList<SurveyResponse> otherSurveyResponses = surveyList.getAssociatedResponses("Advertising Survey");[m
+ [m
+[31m-		//Assert that the right response titles are in the right lists[m
+[32m+[m		[32m// Assert that the right response titles are in the right lists[m
+ 		assertEquals("Mary's Answers", specificResponses.get(0).getResponseTitle());[m
+ 		assertEquals("John's Reponse", specificResponses.get(1).getResponseTitle());[m
+ 		assertEquals("Joe's Reponse", specificResponses.get(2).getResponseTitle());[m
+[31m-		[m
+[32m+[m
+ 		assertEquals("Ryan's Reponse", otherSurveyResponses.get(0).getResponseTitle());[m
+ 		assertEquals("David's Reponse", otherSurveyResponses.get(1).getResponseTitle());[m
+ [m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32m@Test[m
+[32m+[m	[32m// Test to ensure an answer cannot be added if there are no questions in the[m
+[32m+[m	[32m// survey[m
+[32m+[m	[32mpublic void emptyQuestionAnswers() {[m
+[32m+[m		[32mSurvey s = new Survey("Quality Survey");[m
+[32m+[m
+[32m+[m		[32m// create the new survey respose object and passing in the answers[m
+[32m+[m		[32mSurveyResponse sr = new SurveyResponse("Marys Answers", s);[m
+[32m+[m		[32msr.addAnswers(s.getTitle(), 3);[m
+[32m+[m		[32msr.addAnswers(s.getTitle(), 5);[m
+ [m
+[32m+[m		[32massertEquals(true, sr.getAnswer().isEmpty());[m
+ 	}[m
+ [m
+[32m+[m	[32m@Test[m
+[32m+[m	[32m// Testing to get the average answer for a survey[m
+[32m+[m	[32mpublic void getAverageAnswer() {[m
+[32m+[m		[32m// Create a number of different surveys[m
+[32m+[m		[32mSurvey s = new Survey("Quality Survey");[m
+[32m+[m		[32mSurvey secondSurvey = new Survey("Advertising Survey");[m
+[32m+[m		[32mSurvey thirdSurvey = new Survey("Phone Survey");[m
+[32m+[m
+[32m+[m		[32ms.addQuestions("Customer Service");[m
+[32m+[m		[32ms.addQuestions("Hygine");[m
+[32m+[m		[32mString question1 = s.getQuestions().get(0);[m
+[32m+[m		[32mString question2 = s.getQuestions().get(1);[m
+[32m+[m
+[32m+[m		[32msecondSurvey.addQuestions("Coverage");[m
+[32m+[m		[32msecondSurvey.addQuestions("Message");[m
+[32m+[m
+[32m+[m		[32m// creating the new survey respose object and passing in the[m
+[32m+[m		[32mSurveyResponse sr = new SurveyResponse("Marys Answers", s);[m
+[32m+[m		[32mSurveyResponse secondResponse = new SurveyResponse("Joe's Answers", secondSurvey);[m
+[32m+[m
+[32m+[m		[32msr.addAnswers(question1, 3);[m
+[32m+[m		[32msr.addAnswers(question2, 5);[m
+[32m+[m
+[32m+[m		[32msecondResponse.addAnswers(secondSurvey.getQuestions().get(0), 1);[m
+[32m+[m		[32msecondResponse.addAnswers(secondSurvey.getQuestions().get(1), 4);[m
+ [m
+[32m+[m		[32mSurveys surveys = new Surveys();[m
+[32m+[m		[32msurveys.addSurvey(s);[m
+[32m+[m		[32msurveys.addSurvey(secondSurvey);[m
+[32m+[m		[32msurveys.addSurvey(thirdSurvey);[m
+ [m
+[32m+[m		[32mint sAverage = surveys.getAverageAnswer(sr.getAnswer());[m
+[32m+[m		[32mint secondAverage = surveys.getAverageAnswer(secondResponse.getAnswer());[m
+[32m+[m
+[32m+[m		[32massertEquals(4, sAverage);[m
+[32m+[m		[32massertEquals(2, secondAverage);[m
+[32m+[m
+[32m+[m	[32m}[m
+ [m
+ 	@Test[m
+[31m-	// Test to ensure an answer cannot be added if there are no questions in the survey[m
+[31m-	public void emptyQuestionAnswers() {[m
+[32m+[m	[32m// Testing to get the overall minimum answer[m
+[32m+[m	[32mpublic void getMinAnswer() {[m
+[32m+[m		[32m// Create a number of different surveys[m
+ 		Survey s = new Survey("Quality Survey");[m
+[32m+[m		[32mSurvey secondSurvey = new Survey("Advertising Survey");[m
+[32m+[m		[32mSurvey thirdSurvey = new Survey("Phone Survey");[m
+ [m
+[31m-		// create the new survey respose object and passing in the answers[m
+[32m+[m		[32ms.addQuestions("Customer Service");[m
+[32m+[m		[32ms.addQuestions("Hygine");[m
+[32m+[m		[32mString question1 = s.getQuestions().get(0);[m
+[32m+[m		[32mString question2 = s.getQuestions().get(1);[m
+[32m+[m
+[32m+[m		[32msecondSurvey.addQuestions("Coverage");[m
+[32m+[m		[32msecondSurvey.addQuestions("Message");[m
+[32m+[m
+[32m+[m		[32m// creating the new survey respose object and passing in the[m
+ 		SurveyResponse sr = new SurveyResponse("Marys Answers", s);[m
+[31m-		sr.addAnswers(s.getTitle(),"3");[m
+[31m-		sr.addAnswers(s.getTitle(),"5");[m
+[32m+[m		[32mSurveyResponse secondResponse = new SurveyResponse("Joe's Answers", secondSurvey);[m
+ [m
+[31m-		assertEquals(true, sr.getAnswer().isEmpty());[m
+[32m+[m		[32msr.addAnswers(question1, 3);[m
+[32m+[m		[32msr.addAnswers(question2, 5);[m
+[32m+[m
+[32m+[m		[32msecondResponse.addAnswers(secondSurvey.getQuestions().get(0), 1);[m
+[32m+[m		[32msecondResponse.addAnswers(secondSurvey.getQuestions().get(1), 4);[m
+[32m+[m
+[32m+[m		[32mSurveys surveys = new Surveys();[m
+[32m+[m		[32msurveys.addSurvey(s);[m
+[32m+[m		[32msurveys.addSurvey(secondSurvey);[m
+[32m+[m		[32msurveys.addSurvey(thirdSurvey);[m
+[32m+[m
+[32m+[m		[32mint sMin = surveys.getMin(sr.getAnswer());[m
+[32m+[m		[32mint secondMin = surveys.getMin(secondResponse.getAnswer());[m
+[32m+[m
+[32m+[m		[32massertEquals(3, sMin);[m
+[32m+[m		[32massertEquals(1, secondMin);[m
+ 	}[m
+ [m
+[32m+[m	[32m@Test[m
+[32m+[m	[32m//Testing to get the max answer value[m
+[32m+[m	[32mpublic void getMaxAnswer() {[m
+[32m+[m		[32m// Create a number of different surveys[m
+[32m+[m				[32mSurvey s = new Survey("Quality Survey");[m
+[32m+[m				[32mSurvey secondSurvey = new Survey("Advertising Survey");[m
+[32m+[m				[32mSurvey thirdSurvey = new Survey("Phone Survey");[m
+[32m+[m
+[32m+[m				[32ms.addQuestions("Customer Service");[m
+[32m+[m				[32ms.addQuestions("Hygine");[m
+[32m+[m				[32mString question1 = s.getQuestions().get(0);[m
+[32m+[m				[32mString question2 = s.getQuestions().get(1);[m
+[32m+[m
+[32m+[m				[32msecondSurvey.addQuestions("Coverage");[m
+[32m+[m				[32msecondSurvey.addQuestions("Message");[m
+[32m+[m
+[32m+[m				[32m// creating the new survey respose object and passing in the[m
+[32m+[m				[32mSurveyResponse sr = new SurveyResponse("Marys Answers", s);[m
+[32m+[m				[32mSurveyResponse secondResponse = new SurveyResponse("Joe's Answers", secondSurvey);[m
+[32m+[m
+[32m+[m				[32msr.addAnswers(question1, 3);[m
+[32m+[m				[32msr.addAnswers(question2, 5);[m
+[32m+[m
+[32m+[m				[32msecondResponse.addAnswers(secondSurvey.getQuestions().get(0), 1);[m
+[32m+[m				[32msecondResponse.addAnswers(secondSurvey.getQuestions().get(1), 4);[m
+[32m+[m
+[32m+[m				[32mSurveys surveys = new Surveys();[m
+[32m+[m				[32msurveys.addSurvey(s);[m
+[32m+[m				[32msurveys.addSurvey(secondSurvey);[m
+[32m+[m				[32msurveys.addSurvey(thirdSurvey);[m
+[32m+[m
+[32m+[m				[32mint sMax = surveys.getMax(sr.getAnswer());[m
+[32m+[m				[32mint secondMax = surveys.getMax(secondResponse.getAnswer());[m
+[32m+[m
+[32m+[m				[32massertEquals(5, sMax);[m
+[32m+[m				[32massertEquals(4, secondMax);[m
+[32m+[m	[32m}[m
+ 	[m
+[31m-	[m
+[32m+[m	[32m@Test[m
+[32m+[m	[32m//Test to check that the standard deviation is returned[m
+[32m+[m	[32mpublic void getStandadDeviation() {[m
+[32m+[m		[32m// Create a number of different surveys[m
+[32m+[m		[32mSurvey s = new Survey("Quality Survey");[m
+[32m+[m		[32mSurvey secondSurvey = new Survey("Advertising Survey");[m
+[32m+[m		[32mSurvey thirdSurvey = new Survey("Phone Survey");[m
+[32m+[m
+[32m+[m		[32ms.addQuestions("Customer Service");[m
+[32m+[m		[32ms.addQuestions("Hygine");[m
+[32m+[m		[32mString question1 = s.getQuestions().get(0);[m
+[32m+[m		[32mString question2 = s.getQuestions().get(1);[m
+[32m+[m
+[32m+[m		[32msecondSurvey.addQuestions("Coverage");[m
+[32m+[m		[32msecondSurvey.addQuestions("Message");[m
+[32m+[m
+[32m+[m		[32m// creating the new survey respose object and passing in the[m
+[32m+[m		[32mSurveyResponse sr = new SurveyResponse("Marys Answers", s);[m
+[32m+[m		[32mSurveyResponse secondResponse = new SurveyResponse("Joe's Answers", secondSurvey);[m
+[32m+[m
+[32m+[m		[32msr.addAnswers(question1, 3);[m
+[32m+[m		[32msr.addAnswers(question2, 5);[m
+[32m+[m
+[32m+[m		[32msecondResponse.addAnswers(secondSurvey.getQuestions().get(0), 1);[m
+[32m+[m		[32msecondResponse.addAnswers(secondSurvey.getQuestions().get(1), 5);[m
+[32m+[m
+[32m+[m		[32mSurveys surveys = new Surveys();[m
+[32m+[m		[32msurveys.addSurvey(s);[m
+[32m+[m		[32msurveys.addSurvey(secondSurvey);[m
+[32m+[m		[32msurveys.addSurvey(thirdSurvey);[m
+[32m+[m
+[32m+[m		[32mint sDeviation = surveys.getDeviation(sr.getAnswer());[m
+[32m+[m		[32mint secondDeviation = surveys.getDeviation(secondResponse.getAnswer());[m
+[32m+[m
+[32m+[m		[32massertEquals(1, sDeviation);[m
+[32m+[m		[32massertEquals(2, secondDeviation);[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32m@Test[m
+[32m+[m	[32m//Test to ensure that the average answer is retreived for a particular question[m
+[32m+[m	[32mpublic void getSpecificAverage() {[m
+[32m+[m		[32m// Create a number of different surveys[m
+[32m+[m				[32mSurvey s = new Survey("Quality Survey");[m
+[32m+[m
+[32m+[m				[32ms.addQuestions("Customer Service");[m
+[32m+[m				[32ms.addQuestions("Hygine");[m
+[32m+[m				[32mString question1 = s.getQuestions().get(0);[m
+[32m+[m				[32mString question2 = s.getQuestions().get(1);[m
+[32m+[m
+[32m+[m				[32m// creating the new survey respose object and passing in the[m
+[32m+[m				[32mSurveyResponse sr = new SurveyResponse("Marys Answers", s);[m
+[32m+[m[41m				[m
+[32m+[m				[32mSurveyResponse secondResponse = new SurveyResponse("Joe's Answers", s);[m
+[32m+[m
+[32m+[m				[32msr.addAnswers(question1, 3);[m
+[32m+[m				[32msr.addAnswers(question2, 5);[m
+[32m+[m
+[32m+[m				[32msecondResponse.addAnswers(question1, 1);[m
+[32m+[m				[32msecondResponse.addAnswers(question2, 4);[m
+[32m+[m
+[32m+[m				[32mSurveys surveys = new Surveys();[m
+[32m+[m				[32msurveys.addSurvey(s);[m
+[32m+[m[41m				[m
+[32m+[m				[32msurveys.addResponse(sr);[m
+[32m+[m				[32msurveys.addResponse(secondResponse);[m
+[32m+[m
+[32m+[m				[32mint srAverage = surveys.getAverageForQuestion("Customer Service", surveys.getSr());[m
+[32m+[m				[32mint secondAverage = surveys.getAverageForQuestion("Hygine", surveys.getSr());[m
+[32m+[m
+[32m+[m				[32massertEquals(2, srAverage);[m
+[32m+[m				[32massertEquals(4, secondAverage);[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32m@Test[m
+[32m+[m	[32m//Test to get the minimum answer for a specific question[m
+[32m+[m	[32mpublic void getSpecificMinAnswer() {[m
+[32m+[m		[32m// Create a number of different surveys[m
+[32m+[m				[32mSurvey s = new Survey("Quality Survey");[m
+[32m+[m
+[32m+[m				[32ms.addQuestions("Customer Service");[m
+[32m+[m				[32ms.addQuestions("Hygine");[m
+[32m+[m				[32mString question1 = s.getQuestions().get(0);[m
+[32m+[m				[32mString question2 = s.getQuestions().get(1);[m
+[32m+[m
+[32m+[m
+[32m+[m				[32m// creating the new survey respose object and passing in the[m
+[32m+[m				[32mSurveyResponse sr = new SurveyResponse("Marys Answers", s);[m
+[32m+[m				[32mSurveyResponse secondResponse = new SurveyResponse("Joe's Answers", s);[m
+[32m+[m
+[32m+[m				[32msr.addAnswers(question1, 3);[m
+[32m+[m				[32msr.addAnswers(question2, 5);[m
+[32m+[m[41m				[m
+[32m+[m				[32msecondResponse.addAnswers(question1, 5);[m
+[32m+[m				[32msecondResponse.addAnswers(question2, 4);[m
+[32m+[m[41m				[m
+[32m+[m
+[32m+[m				[32mSurveys surveys = new Surveys();[m
+[32m+[m				[32msurveys.addSurvey(s);[m
+[32m+[m[41m				[m
+[32m+[m				[32msurveys.addResponse(sr);[m
+[32m+[m				[32msurveys.addResponse(secondResponse);[m
+[32m+[m
+[32m+[m				[32mint sMin = surveys.getMinAnswerForQuestion("Customer Service", surveys.getSr());[m
+[32m+[m				[32mint secondMin = surveys.getMinAnswerForQuestion("Hygine", surveys.getSr());[m
+[32m+[m
+[32m+[m				[32massertEquals(3, sMin);[m
+[32m+[m				[32massertEquals(4, secondMin);[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32m@Test[m
+[32m+[m	[32m//Test that the max answer for a specific question is returned[m
+[32m+[m	[32mpublic void getSpecificMaxAnswer() {[m
+[32m+[m		[32m// Create a number of different surveys[m
+[32m+[m		[32mSurvey s = new Survey("Quality Survey");[m
+[32m+[m
+[32m+[m		[32ms.addQuestions("Customer Service");[m
+[32m+[m		[32ms.addQuestions("Hygine");[m
+[32m+[m		[32mString question1 = s.getQuestions().get(0);[m
+[32m+[m		[32mString question2 = s.getQuestions().get(1);[m
+[32m+[m
+[32m+[m
+[32m+[m		[32m// creating the new survey respose object and passing in the[m
+[32m+[m		[32mSurveyResponse sr = new SurveyResponse("Marys Answers", s);[m
+[32m+[m		[32mSurveyResponse secondResponse = new SurveyResponse("Joe's Answers", s);[m
+[32m+[m
+[32m+[m		[32msr.addAnswers(question1, 1);[m
+[32m+[m		[32msr.addAnswers(question2, 5);[m
+[32m+[m[41m		[m
+[32m+[m		[32msecondResponse.addAnswers(question1, 4);[m
+[32m+[m		[32msecondResponse.addAnswers(question2, 4);[m
+[32m+[m[41m		[m
+[32m+[m
+[32m+[m		[32mSurveys surveys = new Surveys();[m
+[32m+[m		[32msurveys.addSurvey(s);[m
+[32m+[m[41m		[m
+[32m+[m		[32msurveys.addResponse(sr);[m
+[32m+[m		[32msurveys.addResponse(secondResponse);[m
+[32m+[m
+[32m+[m		[32mint sMax = surveys.getMaxAnswerForQuestion("Customer Service", surveys.getSr());[m
+[32m+[m		[32mint secondMax = surveys.getMaxAnswerForQuestion("Hygine", surveys.getSr());[m
+[32m+[m
+[32m+[m		[32massertEquals(4, sMax);[m
+[32m+[m		[32massertEquals(5, secondMax);[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32m@Test[m
+[32m+[m	[32m//Test to get the standard deviation for a specific question[m
+[32m+[m	[32mpublic void getSpecificStandardDeviation() {[m
+[32m+[m		[32m// Create a number of different surveys[m
+[32m+[m				[32mSurvey s = new Survey("Quality Survey");[m
+[32m+[m[41m				[m
+[32m+[m				[32ms.addQuestions("Customer Service");[m
+[32m+[m				[32ms.addQuestions("Hygine");[m
+[32m+[m				[32mString question1 = s.getQuestions().get(0);[m
+[32m+[m				[32mString question2 = s.getQuestions().get(1);[m
+[32m+[m
+[32m+[m				[32m// creating the new survey respose object and passing in the[m
+[32m+[m				[32mSurveyResponse sr = new SurveyResponse("Marys Answers", s);[m
+[32m+[m				[32mSurveyResponse secondResponse = new SurveyResponse("Joe's Answers", s);[m
+[32m+[m
+[32m+[m				[32msr.addAnswers(question1, 3);[m
+[32m+[m				[32msr.addAnswers(question2, 1);[m
+[32m+[m
+[32m+[m				[32msecondResponse.addAnswers(question1, 5);[m
+[32m+[m				[32msecondResponse.addAnswers(question2, 5);[m
+[32m+[m[41m				[m
+[32m+[m				[32mSurveys surveys = new Surveys();[m
+[32m+[m				[32msurveys.addSurvey(s);[m
+[32m+[m				[32msurveys.addResponse(sr);[m
+[32m+[m				[32msurveys.addResponse(secondResponse);[m
+[32m+[m
+[32m+[m				[32mint sDeviation = surveys.getStandardDeviationForQuestion("Customer Service", surveys.getSr(), sr.getAnswer());[m
+[32m+[m				[32mint secondDeviation = surveys.getStandardDeviationForQuestion("Hygine", surveys.getSr(), secondResponse.getAnswer());[m
+[32m+[m
+[32m+[m				[32massertEquals(1, sDeviation);[m
+[32m+[m				[32massertEquals(2, secondDeviation);[m
+[32m+[m	[32m}[m
+[32m+[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/src/Survey.java b/src/Survey.java[m
+[1mindex 3a36713..ff45399 100644[m
+[1m--- a/src/Survey.java[m
+[1m+++ b/src/Survey.java[m
+[36m@@ -29,7 +29,9 @@[m [mpublic class Survey {[m
+ [m
+ 	[m
+ 	public void addQuestions(String question) {[m
+[31m-		questions.add(question);[m
+[32m+[m		[32mif(questions.size() < 10) {[m
+[32m+[m			[32mquestions.add(question);[m
+[32m+[m		[32m}[m
+ 	}[m
+ 	[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/src/SurveyResponse.java b/src/SurveyResponse.java[m
+[1mindex 88f6e90..9d3a25a 100644[m
+[1m--- a/src/SurveyResponse.java[m
+[1m+++ b/src/SurveyResponse.java[m
+[36m@@ -5,7 +5,7 @@[m [mimport java.util.LinkedHashMap;[m
+ public class SurveyResponse {[m
+ 	Survey survey;[m
+ 	String responseTitle;[m
+[31m-	LinkedHashMap<String, String> answers;[m
+[32m+[m	[32mLinkedHashMap<String, Integer> answers;[m
+ [m
+ 	public SurveyResponse(String responseTitle, Survey survey) {[m
+ 		super();[m
+[36m@@ -30,29 +30,20 @@[m [mpublic class SurveyResponse {[m
+ 		this.responseTitle = responseTitle;[m
+ 	}[m
+ [m
+[31m-	public HashMap<String, String> getAnswer() {[m
+[32m+[m	[32mpublic HashMap<String, Integer> getAnswer() {[m
+ 		return answers;[m
+ 	}[m
+ [m
+[31m-	public void setAnswer(LinkedHashMap<String, String> answer) {[m
+[32m+[m	[32mpublic void setAnswer(LinkedHashMap<String, Integer> answer) {[m
+ 		this.answers = answer;[m
+ 	}[m
+ [m
+[31m-	public void addAnswers(String question, String answer) {[m
+[32m+[m	[32mpublic void addAnswers(String question, int answer) {[m
+ 		if (survey.getQuestions().isEmpty()) {[m
+ 			// Cannot add an answer for a question that does not exist[m
+ 		} else {[m
+[31m-			if(answer < 6) {[m
+[31m-				answers.put(question, answer);[m
+[31m-			}[m
+[31m-			[m
+[32m+[m			[32manswers.put(question, answer);[m
+ 		}[m
+ 	}[m
+ [m
+[31m-	public LinkedHashMap<String, String> getSpecificSurveyReposes(String surveyTitle) {[m
+[31m-[m
+[31m-		return answers;[m
+[31m-[m
+[31m-	}[m
+[31m-[m
+[31m-}[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/src/Surveys.java b/src/Surveys.java[m
+[1mindex 8ea6416..e508b38 100644[m
+[1m--- a/src/Surveys.java[m
+[1m+++ b/src/Surveys.java[m
+[36m@@ -1,9 +1,12 @@[m
+ import java.util.ArrayList;[m
+[32m+[m[32mimport java.util.Collections;[m
+[32m+[m[32mimport java.util.HashMap;[m
+[32m+[m[32mimport java.util.LinkedHashMap;[m
+ [m
+ public class Surveys {[m
+ 	ArrayList<Survey> s;[m
+ 	ArrayList<SurveyResponse> sr;[m
+[31m-	[m
+[32m+[m
+ 	public Surveys() {[m
+ 		super();[m
+ 		this.s = new ArrayList<Survey>();[m
+[36m@@ -25,25 +28,178 @@[m [mpublic class Surveys {[m
+ 	public void setSr(ArrayList<SurveyResponse> sr) {[m
+ 		this.sr = sr;[m
+ 	}[m
+[31m-	[m
+[32m+[m
+ 	public void addSurvey(Survey survey) {[m
+ 		s.add(survey);[m
+ 	}[m
+[31m-	[m
+[32m+[m
+ 	public void addResponse(SurveyResponse response) {[m
+ 		sr.add(response);[m
+ 	}[m
+[31m-	[m
+[31m-	public ArrayList<SurveyResponse> getAssociatedResponses(String title){[m
+[32m+[m
+[32m+[m	[32mpublic ArrayList<SurveyResponse> getAssociatedResponses(String title) {[m
+ 		ArrayList<SurveyResponse> returnList = new ArrayList<>();[m
+[31m-		for(int i=0; i < sr.size(); i++) {[m
+[31m-			if(sr.get(i).getSurvey().getTitle().equals(title)) {[m
+[32m+[m		[32mfor (int i = 0; i < sr.size(); i++) {[m
+[32m+[m			[32mif (sr.get(i).getSurvey().getTitle().equals(title)) {[m
+ 				returnList.add(sr.get(i));[m
+ 			}[m
+ 		}[m
+[31m-		[m
+[32m+[m
+ 		return returnList;[m
+ 	}[m
+[31m-	[m
+ [m
+[31m-}[m
+[32m+[m	[32mpublic Survey getSpecificSurvey(String title) {[m
+[32m+[m		[32mSurvey returnSurvey = null;[m
+[32m+[m		[32mfor (Survey survey : s) {[m
+[32m+[m			[32mif (survey.getTitle().equals(title)) {[m
+[32m+[m				[32mreturnSurvey = survey;[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m
+[32m+[m		[32mreturn returnSurvey;[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mpublic int getAverageAnswer(HashMap<String, Integer> answerList) {[m
+[32m+[m		[32mint average = 0;[m
+[32m+[m
+[32m+[m		[32mfor (Integer answer : answerList.values()) {[m
+[32m+[m			[32maverage += answer;[m
+[32m+[m		[32m}[m
+[32m+[m		[32maverage = (int) average / answerList.values().size();[m
+[32m+[m
+[32m+[m		[32mreturn average;[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mpublic int getMin(HashMap<String, Integer> answerList) {[m
+[32m+[m		[32mint min = Collections.min(answerList.values());[m
+[32m+[m		[32mreturn min;[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mpublic int getMax(HashMap<String, Integer> answerList) {[m
+[32m+[m		[32mint max = Collections.max(answerList.values());[m
+[32m+[m		[32mreturn max;[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mpublic int getDeviation(HashMap<String, Integer> answerList) {[m
+[32m+[m		[32mdouble sum = 0.0, standardDeviation = 0.0;[m
+[32m+[m		[32mint length = answerList.values().size();[m
+[32m+[m
+[32m+[m		[32mfor (double num : answerList.values()) {[m
+[32m+[m			[32msum += num;[m
+[32m+[m		[32m}[m
+[32m+[m
+[32m+[m		[32mdouble mean = sum / length;[m
+[32m+[m
+[32m+[m		[32mfor (double num : answerList.values()) {[m
+[32m+[m			[32mstandardDeviation += Math.pow(num - mean, 2);[m
+[32m+[m		[32m}[m
+[32m+[m
+[32m+[m		[32mreturn (int) Math.sqrt(standardDeviation / length);[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mpublic int getAverageForQuestion(String questionTitle, ArrayList<SurveyResponse> responseList) {[m
+[32m+[m		[32mint average = 0;[m
+[32m+[m		[32mArrayList<Integer> answers = new ArrayList();[m
+[32m+[m
+[32m+[m		[32mfor (int i = 0; i < responseList.size(); i++) {[m
+[32m+[m			[32mLinkedHashMap<String, Integer> searchList = (LinkedHashMap<String, Integer>) responseList.get(i)[m
+[32m+[m					[32m.getAnswer();[m
+[32m+[m
+[32m+[m			[32mfor (int j = 0; j < searchList.keySet().size(); j++) {[m
+[32m+[m
+[32m+[m				[32mString searchTitle = searchList.keySet().toArray()[j].toString();[m
+[32m+[m				[32mif (searchTitle.equals(questionTitle)) {[m
+[32m+[m					[32manswers.add(Integer.parseInt(searchList.values().toArray()[j].toString()));[m
+[32m+[m				[32m}[m
+[32m+[m			[32m}[m
+[32m+[m
+[32m+[m		[32m}[m
+[32m+[m
+[32m+[m		[32mfor (Integer answer : answers) {[m
+[32m+[m			[32maverage += answer;[m
+[32m+[m		[32m}[m
+[32m+[m		[32maverage = (int) average / answers.size();[m
+[32m+[m
+[32m+[m		[32mreturn average;[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mpublic int getMinAnswerForQuestion(String questionTitle, ArrayList<SurveyResponse> responseList) {[m
+[32m+[m		[32mint min = 0;[m
+[32m+[m		[32mArrayList<Integer> answers = new ArrayList();[m
+[32m+[m
+[32m+[m		[32mfor (int i = 0; i < responseList.size(); i++) {[m
+[32m+[m
+[32m+[m			[32mLinkedHashMap<String, Integer> searchList = (LinkedHashMap<String, Integer>) responseList.get(i)[m
+[32m+[m					[32m.getAnswer();[m
+[32m+[m
+[32m+[m			[32mfor (int j = 0; j < searchList.keySet().size(); j++) {[m
+[32m+[m
+[32m+[m				[32mString searchTitle = searchList.keySet().toArray()[j].toString();[m
+[32m+[m				[32mif (searchTitle.equals(questionTitle)) {[m
+[32m+[m					[32manswers.add(Integer.parseInt(searchList.values().toArray()[j].toString()));[m
+[32m+[m				[32m}[m
+[32m+[m			[32m}[m
+[32m+[m
+[32m+[m		[32m}[m
+[32m+[m
+[32m+[m		[32mmin = Collections.min(answers);[m
+[32m+[m
+[32m+[m		[32mreturn min;[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mpublic int getMaxAnswerForQuestion(String questionTitle, ArrayList<SurveyResponse> responseList) {[m
+[32m+[m		[32mint max = 0;[m
+[32m+[m		[32mArrayList<Integer> answers = new ArrayList();[m
+[32m+[m
+[32m+[m		[32mfor (int i = 0; i < responseList.size(); i++) {[m
+[32m+[m
+[32m+[m			[32mLinkedHashMap<String, Integer> searchList = (LinkedHashMap<String, Integer>) responseList.get(i)[m
+[32m+[m					[32m.getAnswer();[m
+[32m+[m
+[32m+[m			[32mfor (int j = 0; j < searchList.keySet().size(); j++) {[m
+[32m+[m
+[32m+[m				[32mString searchTitle = searchList.keySet().toArray()[j].toString();[m
+[32m+[m				[32mif (searchTitle.equals(questionTitle)) {[m
+[32m+[m					[32manswers.add(Integer.parseInt(searchList.values().toArray()[j].toString()));[m
+[32m+[m				[32m}[m
+[32m+[m			[32m}[m
+[32m+[m
+[32m+[m		[32m}[m
+[32m+[m
+[32m+[m		[32mmax = Collections.max(answers);[m
+[32m+[m
+[32m+[m		[32mreturn max;[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mpublic int getStandardDeviationForQuestion(String questionTitle, ArrayList<SurveyResponse> responseList, HashMap<String, Integer> answerList) {[m
+[32m+[m[41m		[m
+[32m+[m		[32mArrayList<Integer> answers = new ArrayList();[m
+[32m+[m		[32mdouble sum = 0.0, standardDeviation = 0.0;[m
+[32m+[m		[32mint length =answerList.values().size();[m
+[32m+[m[41m		[m
+[32m+[m		[32mfor (int i = 0; i < responseList.size(); i++) {[m
+[32m+[m			[32mLinkedHashMap<String, Integer> searchList = (LinkedHashMap<String, Integer>) responseList.get(i)[m
+[32m+[m					[32m.getAnswer();[m
+[32m+[m
+[32m+[m			[32mfor (int j = 0; j < searchList.keySet().size(); j++) {[m
+[32m+[m
+[32m+[m				[32mString searchTitle = searchList.keySet().toArray()[j].toString();[m
+[32m+[m				[32mif (searchTitle.equals(questionTitle)) {[m
+[32m+[m					[32manswers.add(Integer.parseInt(searchList.values().toArray()[j].toString()));[m
+[32m+[m				[32m}[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m[41m		[m
+[32m+[m		[32mfor (double num : answers) {[m
+[32m+[m			[32msum += num;[m
+[32m+[m		[32m}[m
+[32m+[m
+[32m+[m		[32mdouble mean = sum / length;[m
+[32m+[m
+[32m+[m		[32mfor (double num : answers) {[m
+[32m+[m			[32mstandardDeviation += Math.pow(num - mean, 2);[m
+[32m+[m		[32m}[m
+[32m+[m
+[32m+[m		[32mreturn (int) Math.sqrt(standardDeviation / length);[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
